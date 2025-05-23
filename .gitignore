@@ -1,0 +1,28 @@
+# PowerShell artifacts
+*.log                           # any log files
+*.cache                         # PowerShell cache
+*.psd1                          # module manifests
+*.psm1                          # module source modules
+
+# PowerShell session and profile
+ConsoleHost_history.txt         # PSReadLine history
+Microsoft.PowerShell_profile.ps1
+
+# Pester test results
+*.Tests.ps1xml
+*.TestResult.xml
+
+# Temporary and backup files
+*~                              # editor temp files
+*.tmp                           # temporary files
+*.bak                           # backup files
+
+# Visual Studio Code settings
+.vscode/
+
+# Windows system files
+Thumbs.db
+Desktop.ini
+
+# Input data (CSV imports)
+*.csv
