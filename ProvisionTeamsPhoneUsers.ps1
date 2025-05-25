@@ -27,7 +27,7 @@ if (-not (Test-Path $DidCsv)) {
 }
 
 $users = Import-Csv $UserCsv | Select-Object UPN
-$dids = Import-Csv $DidCsv -Header 'PhoneNumber' | Select-Object -Expand PhoneNumber
+$dids = Import-Csv $DidCsv | Select-Object -Expand 'Phone Number'
 
 if ($users.Count -eq 0) {
     Throw "The Users.csv file is empty or does not contain a valid 'UPN' column."
