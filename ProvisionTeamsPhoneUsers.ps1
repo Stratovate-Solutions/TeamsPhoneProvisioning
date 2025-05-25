@@ -1,5 +1,3 @@
-$WebBrowser1_DocumentCompleted = {
-}
 [CmdletBinding(SupportsShouldProcess = $true)]
 Param(
     [Parameter(Mandatory)]
@@ -27,7 +25,13 @@ if (-not (Test-Path $DidCsv)) {
 }
 
 $users = Import-Csv $UserCsv | Select-Object UPN
-$dids = Import-Csv $DidCsv | Select-Object -Expand 'Phone Number'
+$didsCsv = Import-Csv $DidCsv
+$phoneColumn = $didsCsv[0].PSObject.Properties.Name | Where-Object { $_ -eq 'PhoneNumber' -or $_ -eq 'Phone Number' }
+if (-not $phoneColumn) {
+    Throw "The DIDs.csv file must contain a 'PhoneNumber' or 'Phone Number' column."
+}
+$dids = $didsCsv | Select-Object -ExpandProperty $phoneColumn
+
 
 if ($users.Count -eq 0) {
     Throw "The Users.csv file is empty or does not contain a valid 'UPN' column."
@@ -121,9 +125,3 @@ Function Set-TeamsPhoneUser {
 $validPairs | ForEach-Object -Parallel {
     Set-TeamsPhoneUser -UPN $_.UPN -PhoneNumber $_.PhoneNumber
 } -ThrottleLimit $ThrottleLimit
-Export-ModuleMember -Variable 'PSCmdlet'
-
-.\ProvisionTeamsPhoneUsers.ps1 `
-  -UserCsv .\users.csv `
-  -DidCsv  .\dids.csv `
-  -ThrottleLimit 10
