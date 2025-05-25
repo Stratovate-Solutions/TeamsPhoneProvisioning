@@ -125,3 +125,10 @@ pwsh -File .\ProvisionTeamsPhoneUsers.ps1 `
   -DefaultVoiceRoutingPolicy 'YourRoutingPolicyName' `
   -ThrottleLimit 5
 ```
+
+## Running Tests
+
+Run all Pester tests from the repository root:
+```powershell
+Invoke-Pester
+```
