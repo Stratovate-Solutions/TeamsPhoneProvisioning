@@ -32,6 +32,7 @@ if (-not $phoneColumn) {
 }
 $dids = $didsCsv | Select-Object -ExpandProperty $phoneColumn
 
+
 if ($users.Count -eq 0) {
     Throw "The Users.csv file is empty or does not contain a valid 'UPN' column."
 }
