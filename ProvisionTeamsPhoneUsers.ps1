@@ -63,7 +63,7 @@ if ($validPairs.Count -eq 0) {
 Write-Host "Valid Pairs:" -ForegroundColor Yellow
 $validPairs | Format-Table
 
-# Step 3: Sequential provisioning (with parallel support)
+# Step 3: Parallel provisioning
 if (-not (Get-Module -Name MicrosoftTeams -ListAvailable)) {
     Import-Module MicrosoftTeams -ErrorAction Stop
 }

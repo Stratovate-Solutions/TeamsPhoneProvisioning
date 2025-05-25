@@ -22,14 +22,16 @@ It reads two CSVs—one for user UPNs, one for DIDs—and assigns phone numbers 
 
 ## Prerequisites
 
-- Windows, PowerShell 7.1 or later  
-- Teams PowerShell module:
+- Windows, PowerShell 7.1 or later
+- Teams PowerShell module
+- Permissions to run Teams cmdlets (e.g. Teams Admin)
 
-  ```powershell
-  Install-Module -Name MicrosoftTeams -Scope CurrentUser
-  ```  
+You can install these dependencies automatically by running the provided
+`setup.sh` script on a compatible Linux system:
 
-- Permissions to run Teams cmdlets (e.g. Teams Admin).
+```bash
+./setup.sh
+```
 
 ---
 
