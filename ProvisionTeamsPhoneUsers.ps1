@@ -103,16 +103,14 @@ Function Set-TeamsPhoneUser {
                 Grant-CsOnlineVoiceRoutingPolicy `
                   -Identity $UPN `
                   -PolicyName $DefaultVoiceRoutingPolicy `
-                  -ErrorAction Stop `
-                  -WhatIf:$WhatIf
+                  -ErrorAction Stop
             }
         }
 
         Set-CsPhoneNumberAssignment `
           -Identity $UPN `
           -PhoneNumber $PhoneNumber `
-          -ErrorAction Stop `
-          -WhatIf:$WhatIf
+          -ErrorAction Stop
 
         Write-Host "✔ $UPN" -ForegroundColor Green
     }
