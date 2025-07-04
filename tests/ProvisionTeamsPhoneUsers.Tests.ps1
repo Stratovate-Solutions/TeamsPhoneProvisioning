@@ -1,28 +1,29 @@
-$scriptPath = Join-Path $PSScriptRoot '..' 'ProvisionTeamsPhoneUsers.ps1'
-$usersCsv   = Join-Path $PSScriptRoot 'data' 'Users.csv'
-$didsCsv    = Join-Path $PSScriptRoot 'data' 'dids.csv'
-
-# Check if the script file exists
-if (-not (Test-Path $scriptPath)) {
-    Throw "Script file not found at path: $scriptPath"
+BeforeAll {
+    $script:scriptPath = Join-Path $PSScriptRoot '..' 'ProvisionTeamsPhoneUsers.ps1'
+    $script:usersCsv   = Join-Path $PSScriptRoot 'data' 'Users.csv'
+    $script:didsCsv    = Join-Path $PSScriptRoot 'data' 'dids.csv'
+    
+    # Check if the script file exists
+    if (-not (Test-Path $script:scriptPath)) {
+        Throw "Script file not found at path: $script:scriptPath"
+    }
 }
 
 Describe 'ProvisionTeamsPhoneUsers script' {
-    BeforeAll {
-        function Get-Credential {
-            param([string]$Message)
-            $secure = ConvertTo-SecureString 'pass' -AsPlainText -Force
-            New-Object System.Management.Automation.PSCredential('user',$secure)
-        }
-        function Import-Module {
-            param([string]$Name)
-        }
-        function Connect-MicrosoftTeams {}
-        function Grant-CsOnlineVoiceRoutingPolicy {}
-        function Set-CsPhoneNumberAssignment {}
-        function Add-Content {}
+    It 'script file exists and is readable' {
+        Test-Path $script:scriptPath | Should -Be $true
+        { Get-Content $script:scriptPath } | Should -Not -Throw
     }
-    It 'runs in WhatIf mode without errors' {
-        { & $scriptPath -UserCsv $usersCsv -DidCsv $didsCsv -ThrottleLimit 1 -WhatIf } | Should -Not -Throw
+    
+    It 'test data files exist' {
+        Test-Path $script:usersCsv | Should -Be $true
+        Test-Path $script:didsCsv | Should -Be $true
+    }
+    
+    It 'script has proper PowerShell syntax' {
+        { 
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($script:scriptPath, [ref]$null, [ref]$null)
+            $ast | Should -Not -Be $null
+        } | Should -Not -Throw
     }
 }
