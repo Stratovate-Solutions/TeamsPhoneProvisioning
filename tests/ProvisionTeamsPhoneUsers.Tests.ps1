@@ -2,9 +2,6 @@ $scriptPath = Join-Path $PSScriptRoot '..' 'ProvisionTeamsPhoneUsers.ps1'
 $usersCsv   = Join-Path $PSScriptRoot 'data' 'Users.csv'
 $didsCsv    = Join-Path $PSScriptRoot 'data' 'dids.csv'
 
-# Debugging: Verify resolved script path
-Write-Host "Resolved script path: $scriptPath"
-
 # Check if the script file exists
 if (-not (Test-Path $scriptPath)) {
     Throw "Script file not found at path: $scriptPath"
